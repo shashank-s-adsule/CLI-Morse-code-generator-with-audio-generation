@@ -1,7 +1,38 @@
 # Morse CLI command
 This is an basic ***text to morse & morse to text*** convertion command code Writen in C++.
 
-it runs directy on terminal by giving user arguments. 
+it runs directy on terminal by giving user arguments.
+
+list of Charater to Morse mapping: 
+
+|Char|Morse|Number|Morse|Symbol|Morse
+| :-----: | :-----: | :----:| :----:|:----:| :----:|
+| (A,a) | .- |1|.----|. | .-.-.-|
+| (B,b) | -... |2|..---|, | --..--|
+| (C,c) | -.-. |3|...--|? | ..--..|
+| (D,d) | -.. |4|....-|\ | .----.|
+| (E,e) | .	   |5|.....|! | -.-.--|
+| (F,f) | ..-. |6|-....|/ | -..-.|
+| (G,g) | --. |7|--...|( | -.--.|
+| (H,h) | .... |8|---..|) | -.--.-|
+| (I,i) | .. |9|----.|& | .-...|
+| (J,j) | .--- |0|-----|: | ---...|
+| (K,k) | -.- ||| ; | -.-.-.|
+| (L,l) | .-.. ||| = | -...-|
+| (M,m) | -- ||| + | .-.-.|
+| (N,n) | -. ||| - | -....-|
+| (O,o) | --- ||| _ | ..--.-|
+| (P,p) | .--. ||| \ | .-..-.|
+| (Q,q) | --.- ||| $ | ...-..-|
+| (R,r) | .-. ||| @ | .--.-.|
+| (S,s) | --- ||| SPACE| .......|
+| (T,t) | - |
+| (U,u) | ..- |
+| (V,v) | ...- |
+| (W,w) | .-- |
+| (X,x) | -..- |
+| (Y,y) | -.-- |
+| (Z,z) | --.. |
 
 
 ## Setup
@@ -31,5 +62,5 @@ After execution the results can be saved to your `Downloads` folder with a user 
 
 
 ## Limitations 
-1. Some character are not exested in morse code: ``` ", `, ~, #, %, ^, *, <, >, [, ], {, }, |, \```
+1. Some character are not printed in morse code: ``` ", `, ~, #, %, ^, *, <, >, [, ], {, }, |, \```
 2. Output file will have whole output as a single line [no new line]
