@@ -3,7 +3,7 @@ This is an basic ***text to morse & morse to text*** convertion command code Wri
 
 it runs directy on terminal by giving user arguments.
 
-list of Charater to Morse mapping: 
+list of character to Morse mapping: 
 
 |Char|Morse|Number|Morse|Symbol|Morse
 | :-----: | :-----: | :----:| :----:|:----:| :----:|
