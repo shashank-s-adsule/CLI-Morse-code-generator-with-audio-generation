@@ -36,7 +36,7 @@ list of character to Morse mapping:
 
 
 ## Setup
-1. Set your USER directory for `OUT_FILE_PATH` [ just replace `USER_NAME` with your `user name` ]
+1. Set your USER directory for [`OUT_FILE_PATH`](./morse_command/morse.cpp) [ just replace `USER_NAME` with your `user name` ]
 2. Set the `SAVE_dir` path in `ending()` function:
    - For ***Windows System*** use `OUT_FILE_PATH[0]`  
    - For ***Linux System*** use `OUT_FILE_PATH[1]`
