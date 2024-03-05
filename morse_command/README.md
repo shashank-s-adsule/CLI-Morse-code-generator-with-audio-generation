@@ -40,7 +40,7 @@ list of character to Morse mapping:
 2. Set the [`SAVE_dir`](./morse.cpp#L114) path in `ending()` function:
    - For ***Windows System*** use `OUT_FILE_PATH[0]`  
    - For ***Linux System*** use `OUT_FILE_PATH[1]`
-3. Run the `morse.cpp` code once to get updated executable file. 
+3. Run the [`morse.cpp`](./morse.cpp) code once to get updated executable file. 
 
 ## Execution
 After geting the the executable file run this command on console
