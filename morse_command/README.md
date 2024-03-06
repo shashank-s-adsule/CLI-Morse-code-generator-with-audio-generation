@@ -58,7 +58,7 @@ For multiline text save the data into .txt and pass the file path to the console
 
 After execution the results can be saved to your `Downloads` folder with a user command `[y/n]`.
 
->[!NOTE]\ 
+>[!NOTE]\
 >for ***Linux System*** use `./morse` commnd on terminal
 
 
