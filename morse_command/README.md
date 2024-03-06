@@ -53,12 +53,13 @@ For multiline text save the data into .txt and pass the file path to the console
 ```console
 .\morse.exe -r "FILE_PATH"
 ```
-[ NOTE: among `-r` `READTXT` `readtxt` `Readtxt` any one can be used ]
+> [!NOTE]\
+> among `-r` `READTXT` `readtxt` `Readtxt` any one can be used
 
 After execution the results can be saved to your `Downloads` folder with a user command `[y/n]`.
 
-
-[ NOTE: for ***Linux System*** use `./morse` commnd on terminal ]
+>[!NOTE]\
+>for ***Linux System*** use `./morse` commnd on terminal
 
 
 ## Limitations 
