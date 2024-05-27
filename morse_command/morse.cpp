@@ -77,7 +77,7 @@ void process()
         }
         else
         {
-            cout<<"[ERROR]: word format wrong at: ["<<idx<<": "<<it<<"]\n";
+            cout<<"\u001b[1;34m[\u001b[1;31mERROR\u001b[1;34m]:\u001b[0m word format wrong at: ["<<idx<<": "<<it<<"]\n";
             exit(0);
         }
         idx++;
@@ -105,14 +105,15 @@ void file_input()
     }
     else
     {
-        cerr<<"[ERROR]: FILE NOT FOUND\n";
+        cerr<<"\u001b[1;34m[\u001b[1;31mERROR\u001b[1;34m]:\u001b[0m FILE NOT FOUND\n";
         exit(0);
     }
 }
+
 void ending()
 {
     string SAVE_dir=OUT_FILE_PATH[0];
-    cout<<"want to save output to .txt file [y/n]: ";
+    cout<<"\u001b[31;2mWant to save output to .txt file [y/n]: \u001b[0m";
     char X;cin>>X;
     if(X=='y')
     {
@@ -122,14 +123,14 @@ void ending()
             out<<OUTPUT;
             cout<<"data saved into the file location: "<<SAVE_dir<<endl;
         }
-        else cerr<<"[ERROR]: DIRECTORY NOT FOUND\n";
+        else cerr<<"\u001b[1;34m[\u001b[1;31mERROR\u001b[1;34m]:\u001b[0m DIRECTORY NOT FOUND\n";
 
         out.close();
     }
     else if(X=='n') return;
     else
     {
-        cerr<<"[ERROR]: invalid input\n";
+        cerr<<"\u001b[1;34m[\u001b[1;31mERROR\u001b[1;34m]:\u001b[0m invalid input\n";
     }
 }
 
@@ -141,12 +142,11 @@ void temp()
 
 }
 
-
 int main(int argc,char* argv[])
 {
     if(argc==1)
     {
-        cerr<<"[ERROR]: missing arguments needed atleast [1] provided [None]\n";
+        cerr<<"\u001b[1;34m[\u001b[1;31mERROR\u001b[1;34m]:\u001b[0m missing arguments needed atleast [1] provided [None]\n";
         exit(0);
     }
     try
@@ -158,7 +158,7 @@ int main(int argc,char* argv[])
         {
             if(argc==2)
             {
-                cerr<<"[ERROR]: file path can't be NULL\n";
+                cerr<<"\u001b[1;34m[\u001b[1;31mERROR\u001b[1;34m]:\u001b[0m file path can't be NULL\n";
                 exit(0);
             }
             FILE_PATH=argv[2];
@@ -174,7 +174,7 @@ int main(int argc,char* argv[])
     }
     catch(const std::exception& e)
     {
-        std::cerr <<"[ERROR]:"<<e.what()<<'\n';
+        std::cerr <<"\u001b[1;34m[\u001b[1;31mERROR\u001b[1;34m]:\u001b[0m"<<e.what()<<'\n';
     }
     
     return 0;
