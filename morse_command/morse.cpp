@@ -29,7 +29,7 @@ unordered_map<string,char> morse2char={
     {".......", ' '},{"//",'\n'}
 };
 // spports max V<s>:178956970 data and string:2147483647 char
-vector<string> DATA, OUT_FILE_PATH={"C:\\Users\\USER_NAME\\Downloads\\output.txt","/home/USER_NAME/Downloads/output.txt"};
+vector<string> DATA, OUT_FILE_PATH={"C:\\Users\\shashank\\Downloads\\output.txt","/home/USER_NAME/Downloads/output.txt"};
 string STR,FILE_PATH,OUTPUT="";
 
 void str2vec()
@@ -113,7 +113,7 @@ void file_input()
 void ending()
 {
     string SAVE_dir=OUT_FILE_PATH[0];
-    cout<<"\u001b[31;2mWant to save output to .txt file [y/n]: \u001b[0m";
+    cout<<"\u001b[1;32mWant to save output to .txt file [y/n]: \u001b[0m";
     char X;cin>>X;
     if(X=='y')
     {
@@ -121,7 +121,7 @@ void ending()
         if(out.good())
         {
             out<<OUTPUT;
-            cout<<"data saved into the file location: "<<SAVE_dir<<endl;
+            cout<<"data saved into the file location: \u001b[1;33m"<<SAVE_dir<<"\u001b[0m"<<endl;
         }
         else cerr<<"\u001b[1;34m[\u001b[1;31mERROR\u001b[1;34m]:\u001b[0m DIRECTORY NOT FOUND\n";
 
