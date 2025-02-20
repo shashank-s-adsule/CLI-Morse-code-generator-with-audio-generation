@@ -1,79 +1,42 @@
 #include <bits/stdc++.h>
 #include <fstream>
+
+// for utils and audio_gen files
+#include "./utils.h"
+
 using namespace std;
 
-unordered_map<char,string> char2morse={
-    {'a', ".-"},{'b', "-..."}, {'c', "-.-."}, {'d', "-.."}, {'e', "."}, {'f', "..-."}, {'g', "--."}, {'h', "...."},{'i', ".."},{'j', ".---"}, {'k', "-.-"}, 
-    {'l', ".-.."},{'m', "--"},{'n', "-."}, {'o', "---"}, {'p', ".--."},{'q', "--.-"},{'r', ".-."},{'s', "..."}, {'t', "-"}, {'u', "..-"}, {'v', "...-"}, 
-    {'w', ".--"}, {'x', "-..-"},{'y', "-.--"},{'z', "--.."},
-
-    {'A', ".-"},{'B', "-..."},{'C', "-.-."}, {'D', "-.."},{'E', "."}, {'F', "..-."}, {'G', "--."}, {'H', "...."}, {'I', ".."},{'J', ".---"},{'K', "-.-"},
-    {'L', ".-.."},{'M', "--"},{'N', "-."},{'O', "---"},{'P', ".--."}, {'Q', "--.-"}, {'R', ".-."},{'S', "..."}, {'T', "-"}, {'U', "..-"}, {'V', "...-"},
-    {'W', ".--"}, {'X', "-..-"},{'Y', "-.--"}, {'Z', "--.."},
-
-    {'0', "-----"},{'1', ".----"},{'2', "..---"},{'3', "...--"},{'4', "....-"},{'5', "....."},{'6', "-...."},{'7', "--..."},{'8', "---.."},{'9', "----."},
-
-    {' ', "......."},{'\n',"//"},
-
-    {'.', ".-.-.-"},{',', "--..--"},{'?', "..--.."}, {'\'', ".----."},{'!', "-.-.--"},{'/', "-..-."},{'(', "-.--."},{')', "-.--.-"},{'&', ".-..."}, {':', "---..."},
-    {';', "-.-.-."},{'=', "-...-"},{'+', ".-.-."},{'-', "-....-"},{'_', "..--.-"},{'\"', ".-..-."},{'$', "...-..-"},{'@', ".--.-."}
-};
-unordered_map<string,char> morse2char={
-    {".-", 'a'}, {"-...", 'b'}, {"-.-.", 'c'}, {"-..", 'd'}, {".", 'e'},{"..-.", 'f'}, {"--.", 'g'}, {"....", 'h'}, {"..", 'i'}, {".---", 'j'},
-    {"-.-", 'k'}, {".-..", 'l'}, {"--", 'm'}, {"-.", 'n'}, {"---", 'o'},{".--.", 'p'}, {"--.-", 'q'}, {".-.", 'r'}, {"...", 's'}, {"-", 't'},
-    {"..-", 'u'}, {"...-", 'v'}, {".--", 'w'}, {"-..-", 'x'}, {"-.--", 'y'},{"--..", 'z'},
-    {".----", '1'}, {"..---", '2'}, {"...--", '3'}, {"....-", '4'},{".....", '5'}, {"-....", '6'}, {"--...", '7'}, {"---..", '8'},{"----.", '9'}, {"-----", '0'},
-    {".-.-.-", '.'}, {"--..--", ','}, {"..--..", '?'}, {".----.", '\''},{"-.-.--", '!'}, {"-..-.", '/'}, {"-.--.", '('}, {"-.--.-", ')'},
-    {".-...", '&'}, {"---...", ':'}, {"-.-.-.", ';'}, {"-...-", '='},{".-.-.", '+'}, {"-....-", '-'}, {"..--.-", '_'}, {".-..-.", '"'},
-    {"...-..-", '$'}, {".--.-.", '@'},
-    {".......", ' '},{"//",'\n'}
-};
 // spports max V<s>:178956970 data and string:2147483647 char
-vector<string> DATA, OUT_FILE_PATH={"C:\\Users\\shashank\\Downloads\\output.txt","/home/USER_NAME/Downloads/output.txt"};
-string STR,FILE_PATH,OUTPUT="";
-
-void str2vec()
-{
-    STR+=" ";
-    string temp="";
-    for(char &c:STR)
-    {
-        if(temp=="" && c==' ') continue;
-        if(c==' ')
-        {
-            DATA.push_back(temp);
-            temp="";
-        }
-        else temp+=c;
-    }
-}
-
-bool is_morse(string &b)
-{
-    if(morse2char[b]) return  true;
-    else return false;
-}
+string USERNAME="shashank";
+// #ifdef __WIN32
+//     USERNAME=getenv("USERNAME");
+// #elif __linux__
+//     USERNAME=getenv("USER");
+// #endif
+vector<string> DATA;
+string STR,FILE_PATH,OUTPUT="",OUT_FILE_PATH;
+bool MORSE_FLAG;
 
 void process()
 {
-    bool morse_flag=is_morse(DATA.front());
+    MORSE_FLAG=is_morse(DATA.front());
     // cout<<"base: "<<morse_flag<<endl;
-    int idx=1;
+    int idx=0;
     for(auto &it:DATA)
     {
         // <debuging>
         // cout<<"case"<<idx<<": "<<is_morse(it)<<endl;
-        if(morse_flag==true && is_morse(it)==true)
+        if(MORSE_FLAG==true && is_morse(it)==true)
         {
             OUTPUT+=morse2char[it];
         }
-        else if(morse_flag==false && is_morse(it)==false)
+        else if(MORSE_FLAG==false && is_morse(it)==false)
         {
             for(char &c:it)
             {
                 OUTPUT+=char2morse[c]+" ";
             }
-            OUTPUT+="....... ";
+            if(idx!=DATA.size()-1) OUTPUT+="....... ";
         }
         else
         {
@@ -86,11 +49,6 @@ void process()
     cout<<OUTPUT<<endl;
 }
 
-void startup()
-{
-    STR.erase(STR.find_last_not_of(" ")+1);
-    STR.erase(0,STR.find_first_not_of(" "));
-}
 void file_input()
 {
     ifstream file(FILE_PATH);
@@ -99,7 +57,7 @@ void file_input()
         while(file.good())
         {
             getline(file,STR);
-            str2vec();
+            str2vec(STR,DATA);
         }
         file.close();
     }
@@ -112,11 +70,24 @@ void file_input()
 
 void ending()
 {
-    string SAVE_dir=OUT_FILE_PATH[0];
+    string SAVE_dir;
     cout<<"\u001b[1;32mWant to save output to .txt file [y/n]: \u001b[0m";
     char X;cin>>X;
     if(X=='y')
     {
+        // to create folder 
+        #ifdef __WIN32
+            OUT_FILE_PATH="C:\\Users\\"+USERNAME+"\\Downloads\\Morse";
+            string command="mkdir "+OUT_FILE_PATH;
+            system(command.c_str());
+            
+            SAVE_dir=OUT_FILE_PATH+"\\output.txt";
+        #elif __linux__
+            OUT_FILE_PATH="/home/"+USERNAME+"/Downloads/"
+            string command="mkdir "+OUT_FILE_PATH;
+            system(command.c_str());
+        #endif
+
         ofstream out(SAVE_dir);
         if(out.good())
         {
@@ -126,6 +97,13 @@ void ending()
         else cerr<<"\u001b[1;34m[\u001b[1;31mERROR\u001b[1;34m]:\u001b[0m DIRECTORY NOT FOUND\n";
 
         out.close();
+
+        if(!MORSE_FLAG)
+        {
+            cout<<"\u001b[1;32mWant to save output to .wav file [y/n]: \u001b[0m";
+
+        }
+
     }
     else if(X=='n') return;
     else
@@ -134,13 +112,6 @@ void ending()
     }
 }
 
-void temp()
-{
-    cout<<"data size: "<<DATA.size()<<endl;
-    // for(auto &it: DATA) cout<<it<<" ";
-    for(auto &it: DATA) cout<<morse2char[it]<<"";
-
-}
 
 int main(int argc,char* argv[])
 {
@@ -152,7 +123,6 @@ int main(int argc,char* argv[])
     try
     {
         STR=argv[1];
-        startup();
 
         if(STR=="READTXT" || STR=="readtxt" ||STR=="Readtxt"|| STR=="-r")
         {
@@ -164,9 +134,8 @@ int main(int argc,char* argv[])
             FILE_PATH=argv[2];
             file_input();
         }
-        else str2vec();
+        else str2vec(STR,DATA);
         
-        // temp();      #debuging
         process();
 
         ending();
