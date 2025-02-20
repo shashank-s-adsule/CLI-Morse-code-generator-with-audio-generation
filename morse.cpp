@@ -20,12 +20,9 @@ bool MORSE_FLAG;
 void process()
 {
     MORSE_FLAG=is_morse(DATA.front());
-    // cout<<"base: "<<morse_flag<<endl;
     int idx=0;
     for(auto &it:DATA)
     {
-        // <debuging>
-        // cout<<"case"<<idx<<": "<<is_morse(it)<<endl;
         if(MORSE_FLAG==true && is_morse(it)==true)
         {
             OUTPUT+=morse2char[it];
@@ -49,25 +46,6 @@ void process()
     cout<<OUTPUT<<endl;
 }
 
-void file_input()
-{
-    ifstream file(FILE_PATH);
-    if(file.good())
-    {
-        while(file.good())
-        {
-            getline(file,STR);
-            str2vec(STR,DATA);
-        }
-        file.close();
-    }
-    else
-    {
-        cerr<<"\u001b[1;34m[\u001b[1;31mERROR\u001b[1;34m]:\u001b[0m FILE NOT FOUND\n";
-        exit(0);
-    }
-}
-
 void ending()
 {
     string SAVE_dir;
@@ -86,6 +64,8 @@ void ending()
             OUT_FILE_PATH="/home/"+USERNAME+"/Downloads/"
             string command="mkdir "+OUT_FILE_PATH;
             system(command.c_str());
+
+            SAVE_dir=OUT_FILE_PATH+"output.txt";
         #endif
 
         ofstream out(SAVE_dir);
@@ -101,7 +81,6 @@ void ending()
         if(!MORSE_FLAG)
         {
             cout<<"\u001b[1;32mWant to save output to .wav file [y/n]: \u001b[0m";
-
         }
 
     }
@@ -132,7 +111,7 @@ int main(int argc,char* argv[])
                 exit(0);
             }
             FILE_PATH=argv[2];
-            file_input();
+            file_input(FILE_PATH,DATA);
         }
         else str2vec(STR,DATA);
         

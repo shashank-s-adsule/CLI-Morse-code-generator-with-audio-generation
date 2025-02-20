@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+#include <fstream>
 
 // Maps for Morse->char & char->Morse
 std::unordered_map<char,std::string> char2morse ={
@@ -51,4 +52,25 @@ void str2vec(std::string &STR,std::vector<std::string> &DATA)
 bool is_morse(std::string &b)
 {
     return morse2char.find(b)!=morse2char.end();
+}
+
+// to get input from txt file
+void file_input(std::string &FILE_PATH,std::vector<std::string> &DATA)
+{
+    std::ifstream file(FILE_PATH);
+    std::string STR="";
+    if(file.good())
+    {
+        while(file.good())
+        {
+            std::getline(file,STR);
+            str2vec(STR,DATA);
+        }
+        file.close();
+    }
+    else
+    {
+        std::cerr<<"\u001b[1;34m[\u001b[1;31mERROR\u001b[1;34m]:\u001b[0m FILE NOT FOUND\n";
+        exit(0);
+    }
 }
