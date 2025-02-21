@@ -1,5 +1,5 @@
-# Morse CLI command
-This is an basic ***text to morse & morse to text*** convertion command code Writen in C++.
+# Morse CLI Command With Audio Generation 
+This is an basic ***text to morse & morse to text*** convertion command code Writen in C++ which can also generate equivalent morse audio output.
 
 it runs directy on terminal by giving user arguments.
 
@@ -36,11 +36,7 @@ list of character to Morse mapping:
 
 
 ## Setup
-1. Set your USER directory for [`OUT_FILE_PATH`](./morse.cpp#L32) [ just replace `USER_NAME` with your `user name` ]
-2. Set the [`SAVE_dir`](./morse.cpp#L114) path in `ending()` function:
-   - For ***Windows System*** use `OUT_FILE_PATH[0]`  
-   - For ***Linux System*** use `OUT_FILE_PATH[1]`
-3. Run the [`morse.cpp`](./morse.cpp) code once to get updated executable file. 
+1. Run the [`morse.cpp`](./morse.cpp) code once to get updated executable file. 
 
 ## Execution
 After geting the the executable file run this command on console
@@ -56,7 +52,8 @@ For multiline text save the data into .txt and pass the file path to the console
 >[!NOTE]\
 >among `-r` `READTXT` `readtxt` `Readtxt` any one can be used
 
-After execution the results can be saved to your `Downloads` folder with a user command `[y/n]`.
+<!-- update is line -->
+After execution the results can be saved to your `Downloads/Morse` folder with a user command `[y/n]`.
 
 >[!NOTE]\
 >for ***Linux System*** use `./morse` commnd on terminal
@@ -65,3 +62,16 @@ After execution the results can be saved to your `Downloads` folder with a user 
 ## Limitations 
 1. Some character are not printed in morse code: ``` ", `, ~, #, %, ^, *, <, >, [, ], {, }, |, \```
 2. Output file will have whole output as a single line [no new line]
+
+## Experimentation
+1. if facing an error with folder or saving file, please check [`USERNAME`](morse.cpp#L13) and change it as per your preference
+2. To change the default save directory, you can modify the string [`OUT_FILE_PATH`](morse.cpp#L59) as needed
+3. The default audio duration is given below. Change it if required.
+
+|Variables|default time|
+|:--:|:--:|
+|[`DOT_DURATION`](audio_genrator.h#L16)| 0.1s|
+|[`DASH_DURATION`](audio_genrator.h#L17)| 0.3s|
+|[`INTER_ELEMENT_GAP`](audio_genrator.h#L18)| 0.125s|
+|[`INTER_LETTER_GAP`](audio_genrator.h#L100)| 0.2s|
+|[`White Space`](audio_genrator.h#L71)| 0.75s|

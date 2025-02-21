@@ -1,18 +1,20 @@
 #include <bits/stdc++.h>
 #include <fstream>
 
-// for utils and audio_gen files
+// preprocessing and utils function  
 #include "./utils.h"
+// audio genration header
+#include "./audio_genrator.h"
 
 using namespace std;
 
-// spports max V<s>:178956970 data and string:2147483647 char
-string USERNAME="shashank";
-// #ifdef __WIN32
-//     USERNAME=getenv("USERNAME");
-// #elif __linux__
-//     USERNAME=getenv("USER");
-// #endif
+// to get username for specifiic OS
+#ifdef __WIN32
+    #define USERNAME getenv("USERNAME")
+#elif __linux__
+    #define USERNAME getenv("USER")
+#endif
+
 vector<string> DATA;
 string STR,FILE_PATH,OUTPUT="",OUT_FILE_PATH;
 bool MORSE_FLAG;
@@ -42,55 +44,60 @@ void process()
         }
         idx++;
     }
-
     cout<<OUTPUT<<endl;
 }
 
 void ending()
 {
-    string SAVE_dir;
+    string SAVE_text_dir, SAVE_audio_dir;
     cout<<"\u001b[1;32mWant to save output to .txt file [y/n]: \u001b[0m";
     char X;cin>>X;
     if(X=='y')
     {
         // to create folder 
         #ifdef __WIN32
-            OUT_FILE_PATH="C:\\Users\\"+USERNAME+"\\Downloads\\Morse";
+            OUT_FILE_PATH="C:\\Users\\"+((string)USERNAME)+"\\Downloads\\Morse";
             string command="mkdir "+OUT_FILE_PATH;
             system(command.c_str());
             
-            SAVE_dir=OUT_FILE_PATH+"\\output.txt";
+            SAVE_text_dir=OUT_FILE_PATH+"\\output.txt";             //for text output
+            SAVE_audio_dir=OUT_FILE_PATH+"\\morse.wav";             //for audio output
         #elif __linux__
-            OUT_FILE_PATH="/home/"+USERNAME+"/Downloads/"
+            OUT_FILE_PATH="/home/"+(string)USERNAME+"/Downloads/";
             string command="mkdir "+OUT_FILE_PATH;
             system(command.c_str());
-
-            SAVE_dir=OUT_FILE_PATH+"output.txt";
+            
+            SAVE_text_dir=OUT_FILE_PATH+"output.txt";               //for text output
+            SAVE_audio_dir=OUT_FILE_PATH+"morse.wav";               //for audio output
         #endif
 
-        ofstream out(SAVE_dir);
+        ofstream out(SAVE_text_dir);
         if(out.good())
         {
             out<<OUTPUT;
-            cout<<"data saved into the file location: \u001b[1;33m"<<SAVE_dir<<"\u001b[0m"<<endl;
+            cout<<"data saved into the file location: \u001b[1;33m"<<SAVE_text_dir<<"\u001b[0m"<<endl;
         }
         else cerr<<"\u001b[1;34m[\u001b[1;31mERROR\u001b[1;34m]:\u001b[0m DIRECTORY NOT FOUND\n";
-
+        
         out.close();
-
+        
         if(!MORSE_FLAG)
         {
             cout<<"\u001b[1;32mWant to save output to .wav file [y/n]: \u001b[0m";
-        }
-        char Y;cin>>Y;
-        if(Y=='y')
-        {
-            // add audio gen code here with .h extetion 
-            cout<<"audio";
-        }
-        else if(Y=='n') return;
-        else cerr<<"\u001b[1;34m[\u001b[1;31mERROR\u001b[1;34m]:\u001b[0m invalid input\n";
+            char Y;cin>>Y;
+            if(Y=='y')
+            {
+                vector<string> temp;
+                str2vec(OUTPUT,temp);
 
+                // convert morse audio
+                morse2audio(temp,SAVE_audio_dir);
+                
+                cout<<"data saved into the file location: \u001b[1;33m"<<SAVE_audio_dir<<"\u001b[0m"<<endl;
+            }
+            else if(Y=='n') return;
+            else cerr<<"\u001b[1;34m[\u001b[1;31mERROR\u001b[1;34m]:\u001b[0m invalid input\n";    
+        }
     }
     else if(X=='n') return;
     else
@@ -123,7 +130,7 @@ int main(int argc,char* argv[])
         }
         else str2vec(STR,DATA);
         
-        process();
+        process();      //main process which convertes text->Morse (viceversa)
 
         ending();
 

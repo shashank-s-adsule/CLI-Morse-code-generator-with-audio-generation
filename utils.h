@@ -32,7 +32,7 @@ std::unordered_map<std::string,char> morse2char={
 };
 
 // string to vector function
-void str2vec(std::string &STR,std::vector<std::string> &DATA,bool Morse=false)
+void str2vec(std::string &STR,std::vector<std::string> &DATA)
 {
     STR+=" ";
     std::string temp="";
@@ -40,8 +40,7 @@ void str2vec(std::string &STR,std::vector<std::string> &DATA,bool Morse=false)
     {
         if(temp=="" && c==' ') continue;
         if(c==' ')
-        {
-            if(Morse && temp==".......") continue;              // to remove space char from morse audio 
+        { 
             DATA.push_back(temp);
             temp="";
         }

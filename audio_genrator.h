@@ -15,7 +15,7 @@ const int MAX_AMPLITUDE = 30000;          // Amplitude for the sine wave
 // Morse code timing (in seconds)
 const double DOT_DURATION = 0.1;          // Duration of a dot
 const double DASH_DURATION = 0.3;         // Duration of a dash
-const double INTER_ELEMENT_GAP = 0.1;     // Gap between dots and dashes
+const double INTER_ELEMENT_GAP = 0.125;     // Gap between dots and dashes
 
 // WAV header structures
 #pragma pack(push, 1)
@@ -68,7 +68,7 @@ std::vector<int16_t> encodeMorse(std::vector<std::string>& morse) {
     {
         if(str==".......")
         {
-            auto gap=generateSilence(0.5);
+            auto gap=generateSilence(0.75);                 //for white space
             audio.insert(audio.end(),gap.begin(),gap.end());
         }
         else
@@ -89,14 +89,54 @@ std::vector<int16_t> encodeMorse(std::vector<std::string>& morse) {
                     // Append gap
                     auto gap = generateSilence(INTER_ELEMENT_GAP);
                     audio.insert(audio.end(), gap.begin(), gap.end());
-                } else if (c == ' ') {
-                    // Use a longer gap to separate letters/words
-                    auto gap = generateSilence(0.3);
-                    audio.insert(audio.end(), gap.begin(), gap.end());
-                }
+                } 
+                // else if (c == ' ') {
+                //     // Use a longer gap to separate letters/words
+                //     auto gap = generateSilence(0.3);
+                //     audio.insert(audio.end(), gap.begin(), gap.end());
+                // }
             }
+            // append gap between letters
+            auto gap=generateSilence(0.2);
+            audio.insert(audio.end(),gap.begin(),gap.end());
         }
     }
 
     return audio;
+}
+
+void morse2audio(std::vector<std::string> &DATA, std::string &audio_dir)
+{
+    // encode message
+    std::vector<int16_t> AudioData=encodeMorse(DATA);
+    uint32_t numsamples=AudioData.size();
+
+    //calcualate header values
+    FmtSubchunk fmt;
+    fmt.blockAlign=fmt.numChannels*(fmt.bitsPerSample/8);
+    fmt.byteRate=fmt.sampleRate*fmt.blockAlign;
+
+    DataSubchunk data;
+    data.subchunk2Size = numsamples * fmt.blockAlign;
+
+    WAVHeader header;
+    header.chunkSize = 4 + (8 + fmt.subchunk1Size) + (8 + data.subchunk2Size);
+
+    // open file in binary mode
+    std::ofstream outFile(audio_dir, std::ios::binary);
+    if(!outFile)
+    {
+        std:: cerr<<"\u001b[1;34m[\u001b[1;31mERROR\u001b[1;34m]:\u001b[0m Could not open file for writing.\n";
+        exit(1);
+    }
+
+    // Write WAV header
+    outFile.write(reinterpret_cast<const char*>(&header), sizeof(header));
+    outFile.write(reinterpret_cast<const char*>(&fmt), sizeof(fmt));
+    outFile.write(reinterpret_cast<const char*>(&data), sizeof(data));
+
+    // Write audio data
+    outFile.write(reinterpret_cast<const char*>(AudioData.data()), data.subchunk2Size);
+
+    outFile.close();
 }
