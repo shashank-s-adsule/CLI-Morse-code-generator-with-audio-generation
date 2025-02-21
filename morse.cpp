@@ -82,6 +82,14 @@ void ending()
         {
             cout<<"\u001b[1;32mWant to save output to .wav file [y/n]: \u001b[0m";
         }
+        char Y;cin>>Y;
+        if(Y=='y')
+        {
+            // add audio gen code here with .h extetion 
+            cout<<"audio";
+        }
+        else if(Y=='n') return;
+        else cerr<<"\u001b[1;34m[\u001b[1;31mERROR\u001b[1;34m]:\u001b[0m invalid input\n";
 
     }
     else if(X=='n') return;
