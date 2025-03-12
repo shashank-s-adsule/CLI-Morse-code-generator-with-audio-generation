@@ -52,7 +52,6 @@ For multiline text save the data into .txt and pass the file path to the console
 >[!NOTE]\
 >among `-r` `READTXT` `readtxt` `Readtxt` any one can be used
 
-<!-- update is line -->
 After execution the results can be saved to your `Downloads/Morse` folder with a user command `[y/n]`.
 
 >[!NOTE]\
@@ -75,3 +74,12 @@ After execution the results can be saved to your `Downloads/Morse` folder with a
 |[`INTER_ELEMENT_GAP`](audio_genrator.h#L18)| 0.125s|
 |[`INTER_LETTER_GAP`](audio_genrator.h#L100)| 0.2s|
 |[`White Space`](audio_genrator.h#L71)| 0.75s|
+
+# Sample Example
+Sample Input:  `hello world`<br>
+Sample Output: `.... . .-.. .-.. --- ....... .-- --- .-. .-.. -..` <br>
+Sample WAV output:<br>
+<audio controls>
+    <source src="./assets/example.wav" type="audio/wav">
+    Your browser Does Not support .WAV audio element
+</audio>
