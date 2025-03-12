@@ -80,6 +80,6 @@ Sample Input:  `hello world`<br>
 Sample Output: `.... . .-.. .-.. --- ....... .-- --- .-. .-.. -..` <br>
 Sample WAV output:<br>
 <audio controls>
-    <source src="./assets/example.wav" type="audio/wav">
+    <source src="assets/example.wav" type="audio/wav">
     Your browser Does Not support .WAV audio element
 </audio>
