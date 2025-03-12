@@ -78,9 +78,9 @@ After execution the results can be saved to your `Downloads/Morse` folder with a
 # Sample Example
 Sample Input:  `hello world`<br>
 Sample Output: `.... . .-.. .-.. --- ....... .-- --- .-. .-.. -..` <br>
-Sample WAV output:<br>
+Sample WAV output: [Audio](assets/example.wav)
 
-<audio controls>
+<!-- <audio controls>
     <source src="https://raw.githubusercontent.com/shashank-s-adsule/CLI-Morse-code-generator-with-audio-generation/raw/refs/heads/main/assets/example.wav" type="audio/wav">
     Your browser Does Not support .WAV audio element
-</audio>
+</audio> -->
