@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include <fstream>
+#include <filesystem>
 
 // preprocessing and utils function  
 #include "./utils.h"
@@ -54,19 +55,17 @@ void ending()
     char X;cin>>X;
     if(X=='y')
     {
-        // to create folder 
+        // to create folder
         #ifdef __WIN32
             OUT_FILE_PATH="C:\\Users\\"+((string)USERNAME)+"\\Downloads\\Morse";
-            string command="mkdir "+OUT_FILE_PATH;
-            system(command.c_str());
-            
+            std::filesystem::create_directories(OUT_FILE_PATH);
+
             SAVE_text_dir=OUT_FILE_PATH+"\\output.txt";             //for text output
             SAVE_audio_dir=OUT_FILE_PATH+"\\morse.wav";             //for audio output
         #elif __linux__
             OUT_FILE_PATH="/home/"+(string)USERNAME+"/Downloads/";
-            string command="mkdir "+OUT_FILE_PATH;
-            system(command.c_str());
-            
+            std::filesystem::create_directories(OUT_FILE_PATH);
+
             SAVE_text_dir=OUT_FILE_PATH+"output.txt";               //for text output
             SAVE_audio_dir=OUT_FILE_PATH+"morse.wav";               //for audio output
         #endif
